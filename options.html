@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CyberSafe Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      min-width: 400px;
+      padding: 20px;
+      background: var(--bg-main, #0f172a);
+      color: var(--text-main, #f8fafc);
+    }
+    .options-container {
+      background: var(--panel-bg, rgba(30, 41, 59, 0.7));
+      border: 1px solid var(--border-color, rgba(51, 65, 85, 0.8));
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    h2 {
+      margin-top: 0;
+      color: var(--primary-light, #60a5fa);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--text-muted, #94a3b8);
+    }
+    input[type="password"], input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(15, 23, 42, 0.6);
+      color: #fff;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--primary-color, #3b82f6);
+    }
+    #saveBtn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+    }
+    #status {
+      margin-top: 15px;
+      font-size: 14px;
+      text-align: center;
+      min-height: 20px;
+    }
+    .status-success { color: #4ade80; }
+    .status-error { color: #f87171; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="shield-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        <h2>CyberSafe Settings</h2>
+      </div>
+    </header>
+
+    <div class="options-container">
+      <h2>AI Configuration</h2>
+      <p style="font-size: 13px; color: var(--text-muted, #94a3b8); margin-bottom: 20px;">
+        To use the Gemini AI Security Advisor, you need to provide a valid Google Gemini API Key. Your key is stored securely in your browser and is never shared.<br><br>
+        Don't have an API Key? <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color: var(--primary-light, #60a5fa); text-decoration: none;">Get one for free from Google AI Studio</a>.
+      </p>
+      <div class="form-group">
+        <label for="apiKey">Gemini API Key</label>
+        <input type="password" id="apiKey" placeholder="AIzaSy...">
+      </div>
+      <button id="saveBtn" class="primary-btn">Save Configuration</button>
+      <div id="status"></div>
+    </div>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

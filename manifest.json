@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "CyberSafe Web Guard",
+  "version": "2.0",
+  "description": "Premium Cybersecurity website analyzer",
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  }
+}

@@ -16,21 +16,31 @@ It is also equipped with the **Gemini 2.5 Flash AI Security Advisor** to instant
 
 ## 🚀 Installation & Setup
 
-Because this is a developer extension, you need to load it directly into Chrome:
+Because this is an unpacked developer extension, you need to load it directly into Chrome:
 
-1. Download or clone this repository to your computer.
+1. Open your terminal and run the following commands to download the project:
+   ```bash
+   git clone https://github.com/ranatirth007/Cybersafe-web-extention-V2.git
+   cd Cybersafe-web-extention-V2
+   ```
 2. Open Google Chrome and type `chrome://extensions/` into the URL bar.
 3. In the top right corner, toggle on **"Developer mode"**.
 4. Click **"Load unpacked"** in the top left.
-5. Select the `CyberSafe Web Guard` folder!
+5. Select the `Cybersafe-web-extention-V2` folder that you just cloned.
 
 ### Configuring the AI Security Advisor
 To use the built-in AI remediation tool, you must supply your own Google Gemini API key:
 1. Get a free API key from [Google AI Studio](https://aistudio.google.com/).
-2. Open `background.js` in a code editor.
-3. Locate `const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE";` on Line 5.
-4. Replace it with your actual key and save the file.
-5. Reload the extension in Chrome.
+2. Right-click the CyberSafe Web Guard extension icon in your Chrome toolbar and select **"Options"**.
+3. Enter your Gemini API key in the settings page and click **"Save Key"**.
+
+## 💡 Usage
+
+1. Pin the extension to your browser toolbar for quick access.
+2. Navigate to any website you want to scan.
+3. Click the **CyberSafe Web Guard** extension icon.
+4. The scanner will run instantly, evaluating the URL, DOM, and scripts to give you a comprehensive safety score.
+5. If the site is flagged with vulnerabilities or threats, click the **"Ask AI Advisor"** button to receive a detailed, step-by-step security patch guide powered by Gemini.
 
 ## 📁 File Structure
 *   `manifest.json` - Configuration and permission routing for Manifest V3.

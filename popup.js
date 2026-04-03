@@ -217,6 +217,30 @@ document.getElementById("scanBtn").addEventListener("click", async () => {
             breakdownContainer.classList.add("hidden");
         }
 
+        // Render Phishing Words directly in UI
+        let phishingWordsContainer = document.getElementById("phishingWordsContainer");
+        let phishingWordsList = document.getElementById("phishingWordsList");
+        if (domResult.detailsKeywords && domResult.detailsKeywords.length > 0) {
+            phishingWordsContainer.classList.remove("hidden");
+            phishingWordsList.innerHTML = "";
+            domResult.detailsKeywords.forEach(kw => {
+                let li = document.createElement("li");
+                // kw format is 'Found phrase: "some word"' by default
+                let cleanWord = kw.replace('Found phrase: "', '').replace('"', '');
+                li.innerText = `"${cleanWord}"`;
+                li.style.borderLeft = "2px solid var(--danger)";
+                li.style.color = "var(--danger)";
+                li.style.fontWeight = "bold";
+                li.style.padding = "5px 10px";
+                li.style.background = "rgba(255, 71, 87, 0.1)";
+                li.style.borderRadius = "4px";
+                li.style.marginBottom = "5px";
+                phishingWordsList.appendChild(li);
+            });
+        } else {
+            if (phishingWordsContainer) phishingWordsContainer.classList.add("hidden");
+        }
+
         // Animate Score Counter
         let scoreEl = document.getElementById("score");
         let currentStatus = "Safe";

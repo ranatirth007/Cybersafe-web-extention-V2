@@ -50,6 +50,19 @@ To use the built-in AI remediation tool, you must supply your own Google Gemini 
 4. The scanner will run instantly, evaluating the URL, DOM, and scripts to give you a comprehensive safety score.
 5. If the site is flagged with vulnerabilities or threats, click the **"Ask AI Advisor"** button to receive a detailed, step-by-step security patch guide powered by Gemini.
 
+## 🚨 Monitored Phishing Keywords
+
+The extension actively scans the website's text for commonly abused phrases used by malicious actors. Finding these terms drastically increases the risk score of the website and they are shown directly in the UI if found:
+*   `verify account`
+*   `confirm password`
+*   `update payment`
+*   `security alert`
+*   `bank account`
+*   `urgent action`
+*   `account suspended`
+
+*(Note: These keywords trigger severe -15 penalties per occurrence in the risk scoring algorithm).*
+
 ## 📁 File Structure
 *   `manifest.json` - Configuration and permission routing for Manifest V3.
 *   `background.js` - Service worker that handles Gemini AI API routing and background execution.

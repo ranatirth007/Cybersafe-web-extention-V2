@@ -18,11 +18,19 @@ It is also equipped with the **Gemini 2.5 Flash AI Security Advisor** to instant
 
 Because this is an unpacked developer extension, you need to load it directly into Chrome:
 
-1. Open your terminal and run the following commands to download the project:
-   ```bash
-   git clone https://github.com/ranatirth007/Cybersafe-web-extention-V2.git
-   cd Cybersafe-web-extention-V2
-   ```
+1. **Download the project** using your operating system's command line:
+
+   * **For Windows:** Open Command Prompt or PowerShell and run:
+     ```cmd
+     git clone https://github.com/ranatirth007/Cybersafe-web-extention-V2.git
+     cd Cybersafe-web-extention-V2
+     ```
+
+   * **For macOS / Linux:** Open the Terminal app and run:
+     ```bash
+     git clone https://github.com/ranatirth007/Cybersafe-web-extention-V2.git
+     cd Cybersafe-web-extention-V2
+     ```
 2. Open Google Chrome and type `chrome://extensions/` into the URL bar.
 3. In the top right corner, toggle on **"Developer mode"**.
 4. Click **"Load unpacked"** in the top left.

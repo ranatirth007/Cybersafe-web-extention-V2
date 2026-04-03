@@ -160,11 +160,16 @@ document.getElementById("scanBtn").addEventListener("click", async () => {
         document.getElementById("iframes").innerText = domResult.iframes;
         
         let keywordBox = document.getElementById("keywordBox");
+        keywordBox.classList.remove("hidden");
+        document.getElementById("keywords").innerText = domResult.keywords;
         if (domResult.keywords > 0) {
-            keywordBox.classList.remove("hidden");
-            document.getElementById("keywords").innerText = domResult.keywords;
+            keywordBox.classList.add("alert-stat");
+            document.getElementById("keywords").classList.add("alert-text");
+            keywordBox.querySelector(".stat-label").classList.add("alert-text");
         } else {
-            keywordBox.classList.add("hidden");
+            keywordBox.classList.remove("alert-stat");
+            document.getElementById("keywords").classList.remove("alert-text");
+            keywordBox.querySelector(".stat-label").classList.remove("alert-text");
         }
 
         // Render Breakdown
@@ -220,25 +225,31 @@ document.getElementById("scanBtn").addEventListener("click", async () => {
         // Render Phishing Words directly in UI
         let phishingWordsContainer = document.getElementById("phishingWordsContainer");
         let phishingWordsList = document.getElementById("phishingWordsList");
-        if (domResult.detailsKeywords && domResult.detailsKeywords.length > 0) {
+        if (phishingWordsContainer) {
             phishingWordsContainer.classList.remove("hidden");
             phishingWordsList.innerHTML = "";
-            domResult.detailsKeywords.forEach(kw => {
+            if (domResult.detailsKeywords && domResult.detailsKeywords.length > 0) {
+                domResult.detailsKeywords.forEach(kw => {
+                    let li = document.createElement("li");
+                    // kw format is 'Found phrase: "some word"' by default
+                    let cleanWord = kw.replace('Found phrase: "', '').replace('"', '');
+                    li.innerText = `"${cleanWord}"`;
+                    li.style.borderLeft = "2px solid var(--danger)";
+                    li.style.color = "var(--danger)";
+                    li.style.fontWeight = "bold";
+                    li.style.padding = "5px 10px";
+                    li.style.background = "rgba(255, 71, 87, 0.1)";
+                    li.style.borderRadius = "4px";
+                    li.style.marginBottom = "5px";
+                    phishingWordsList.appendChild(li);
+                });
+            } else {
                 let li = document.createElement("li");
-                // kw format is 'Found phrase: "some word"' by default
-                let cleanWord = kw.replace('Found phrase: "', '').replace('"', '');
-                li.innerText = `"${cleanWord}"`;
-                li.style.borderLeft = "2px solid var(--danger)";
-                li.style.color = "var(--danger)";
-                li.style.fontWeight = "bold";
-                li.style.padding = "5px 10px";
-                li.style.background = "rgba(255, 71, 87, 0.1)";
-                li.style.borderRadius = "4px";
-                li.style.marginBottom = "5px";
+                li.innerText = "No malicious keywords detected on this site.";
+                li.style.color = "var(--safe)";
+                li.style.marginTop = "5px";
                 phishingWordsList.appendChild(li);
-            });
-        } else {
-            if (phishingWordsContainer) phishingWordsContainer.classList.add("hidden");
+            }
         }
 
         // Animate Score Counter

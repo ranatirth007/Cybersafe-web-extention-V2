@@ -159,10 +159,21 @@ document.getElementById("scanBtn").addEventListener("click", async () => {
         document.getElementById("forms").innerText = domResult.forms;
         document.getElementById("iframes").innerText = domResult.iframes;
         
+        let urlPhishWords = bgResult.urlPhishingWords || [];
+        let domPhishWords = domResult.detailsKeywords || [];
+        
+        // Combine them for the UI list
+        let allDetailsKeywords = [];
+        urlPhishWords.forEach(kw => allDetailsKeywords.push(`URL Flag: "${kw}"`));
+        domPhishWords.forEach(kw => allDetailsKeywords.push(kw)); // Note: dom words look like 'Found phrase: "word"'
+
+        // Update total keywords count
+        let totalKeywordsFound = (domResult.keywords || 0) + urlPhishWords.length;
+
         let keywordBox = document.getElementById("keywordBox");
         keywordBox.classList.remove("hidden");
-        document.getElementById("keywords").innerText = domResult.keywords;
-        if (domResult.keywords > 0) {
+        document.getElementById("keywords").innerText = totalKeywordsFound;
+        if (totalKeywordsFound > 0) {
             keywordBox.classList.add("alert-stat");
             document.getElementById("keywords").classList.add("alert-text");
             keywordBox.querySelector(".stat-label").classList.add("alert-text");
@@ -228,12 +239,16 @@ document.getElementById("scanBtn").addEventListener("click", async () => {
         if (phishingWordsContainer) {
             phishingWordsContainer.classList.remove("hidden");
             phishingWordsList.innerHTML = "";
-            if (domResult.detailsKeywords && domResult.detailsKeywords.length > 0) {
-                domResult.detailsKeywords.forEach(kw => {
+            if (allDetailsKeywords.length > 0) {
+                allDetailsKeywords.forEach(kw => {
                     let li = document.createElement("li");
-                    // kw format is 'Found phrase: "some word"' by default
-                    let cleanWord = kw.replace('Found phrase: "', '').replace('"', '');
-                    li.innerText = `"${cleanWord}"`;
+                    // kw format is either 'URL Flag: "word"' or 'Found phrase: "word"'
+                    let cleanWord = kw.replace('Found phrase: "', '').replace('URL Flag: "', '').replace('"', '');
+                    if (kw.startsWith("URL Flag")) {
+                        li.innerText = `URL: "${cleanWord}"`;
+                    } else {
+                        li.innerText = `Page: "${cleanWord}"`;
+                    }
                     li.style.borderLeft = "2px solid var(--danger)";
                     li.style.color = "var(--danger)";
                     li.style.fontWeight = "bold";
@@ -271,7 +286,7 @@ document.getElementById("scanBtn").addEventListener("click", async () => {
             "Scripts": domResult.detailsScripts || [],
             "Forms": domResult.detailsForms || [],
             "Iframes": domResult.detailsIframes || [],
-            "Risk Words": domResult.detailsKeywords || []
+            "Risk Words": allDetailsKeywords || []
         };
 
         let setupModalTrigger = (elementId, titleKey) => {

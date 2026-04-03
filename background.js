@@ -20,15 +20,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         let urlScore = analyzeURL(url);
         if (urlScore > 0) { score += urlScore; reasons.push(`-${urlScore}: Suspicious URL structure`); }
         
-        let phishScore = detectPhishing(url);
-        if (phishScore > 0) { score += phishScore; reasons.push(`-${phishScore}: Phishing words in URL`); }
+        let phishResult = detectPhishing(url);
+        if (phishResult.score > 0) { score += phishResult.score; reasons.push(`-${phishResult.score}: Phishing words in URL`); }
         
         if (domain) {
             let repScore = await checkReputation(domain);
             if (repScore > 0) { score += repScore; reasons.push(`-${repScore}: Flagged by security vendors (VirusTotal)`); }
         }
 
-        sendResponse({ error: false, score: score, reasons: reasons });
+        sendResponse({ error: false, score: score, reasons: reasons, urlPhishingWords: phishResult.foundWords || [] });
       } catch (err) {
         console.error("scanURL handler error:", err);
         sendResponse({ error: true, score: 0 });

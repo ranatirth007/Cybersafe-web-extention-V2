@@ -49,11 +49,10 @@ document.getElementById("scanBtn").addEventListener("click", async () => {
             func: () => {
                 let reasons = [];
                 
-                // Extract detailed lists (capped at 30 items)
+                // Extract full detailed lists
                 let extractSources = (selector, attr) => {
                     return Array.from(document.querySelectorAll(selector))
-                                .map(el => el[attr] || "No target/source defined")
-                                .slice(0, 30);
+                                .map(el => el[attr] || "No target/source defined");
                 };
                 
                 let detailsLinks = extractSources("a", "href");
